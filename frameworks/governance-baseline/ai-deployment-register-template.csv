@@ -1,0 +1,3 @@
+deployment,owner,status,Q1_autonomous_scope_documented,Q2_named_checker,Q3_error_procedure,Q4_manual_fallback,jurisdictions,governed,gaps,last_reviewed
+"Customer-service summarisation assistant","Head of CX",live,yes,"J. Tan, CX Quality Lead",yes,yes,"SG",yes,"",2026-09-13
+"Procurement agent (draft POs)","CFO",pilot,yes,"",no,yes,"SG;MY",no,"Q2;Q3",2026-09-13

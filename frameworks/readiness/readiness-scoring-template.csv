@@ -1,0 +1,2 @@
+initiative,assessed_on,assessed_by,D1_data,D2_process,D3_governance,D4_team,D5_measurement,verdict,blocking_dimensions,notes
+"Example: invoice-matching assistant",2026-09-13,"Head of Finance",3,4,2,3,2,blocked,"D3;D5","Name an approver for exceptions; capture 8 weeks of manual cycle-time baseline first"

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://terencekok.com/schemas/task-envelope.schema.json",
+  "title": "Task envelope (Governed Agentic RAG, control B2)",
+  "description": "The record every agent task carries from ingress to commit. Transitions are checked against this envelope, never inferred from model output. See reference-architecture/governed-agentic-rag/task-lifecycle.yaml for the state machine.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task_id", "principal", "tenant", "risk_tier", "state", "tool_allowlist", "data_scope", "budget", "deadline", "acceptance_criteria", "created_at"],
+  "properties": {
+    "task_id": { "type": "string", "minLength": 1 },
+    "principal": {
+      "type": "object",
+      "required": ["id", "kind"],
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "type": "string", "enum": ["person", "system", "agent"] }
+      }
+    },
+    "tenant": { "type": "string", "minLength": 1 },
+    "jurisdictions": { "type": "array", "items": { "type": "string", "pattern": "^[A-Z]{2}$" } },
+    "risk_tier": { "type": "string", "enum": ["reversible_no_harm", "reversible_with_cost", "irreversible"] },
+    "state": {
+      "type": "string",
+      "enum": ["received", "classified", "enveloped", "planned", "executed", "verified", "approved", "committed", "completed_deterministic", "escalated_halted"]
+    },
+    "tool_allowlist": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "data_scope": { "type": "array", "items": { "type": "string" }, "description": "Data classes or collections the task may read." },
+    "budget": {
+      "type": "object",
+      "required": ["tokens"],
+      "properties": {
+        "tokens": { "type": "integer", "minimum": 0 },
+        "tool_calls": { "type": "integer", "minimum": 0 },
+        "cost_ceiling": { "type": "number", "minimum": 0 },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" }
+      }
+    },
+    "deadline": { "type": "string", "format": "date-time" },
+    "acceptance_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "check"],
+        "properties": {
+          "id": { "type": "string" },
+          "check": { "type": "string", "description": "A test independent of the agent's own output." },
+          "ground_truth_source": { "type": "string" }
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "description": "Present once the task has passed D2.",
+      "required": ["approver", "decided_at", "trace_ref"],
+      "properties": {
+        "approver": { "type": "string", "description": "A named person, not a role." },
+        "decided_at": { "type": "string", "format": "date-time" },
+        "trace_ref": { "type": "string", "description": "Pointer to the reasoning trace in the audit log (E1)." }
+      }
+    },
+    "model_version": { "type": "string" },
+    "prompt_version": { "type": "string" },
+    "policy_version": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "audit_ref": { "type": "string", "description": "Hash-chain entry for this envelope in the immutable log (E1)." }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "risk_tier": { "const": "irreversible" }, "state": { "const": "committed" } }, "required": ["risk_tier", "state"] },
+      "then": { "required": ["approval"] }
+    }
+  ]
+}

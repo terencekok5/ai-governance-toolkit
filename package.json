@@ -1,0 +1,16 @@
+{
+  "name": "ai-governance-toolkit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Machine-readable versions of Terence Kok's AI governance frameworks and the Governed Agentic RAG reference architecture controls.",
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/validate.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "yaml": "^2.8.1"
+  },
+  "license": "SEE LICENSE IN LICENSE.md"
+}

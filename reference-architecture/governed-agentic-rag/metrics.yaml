@@ -1,0 +1,29 @@
+# Operating metrics for the Governed Agentic RAG reference architecture
+# (control E2). Each metric names the control it observes and what a
+# movement means.
+metrics:
+  - id: policy_block_rate
+    name: Policy block rate
+    observes: [B1, D1]
+    meaning: How often the policy engine or output guardrails stop an output. Rising means the model or prompt drifted, or the policy changed.
+  - id: injection_catch_rate
+    name: Injection catch rate
+    observes: [A2, D1]
+    meaning: Detected attempts against a seeded red-team set. Falling means the classifier needs retraining.
+  - id: provenance_coverage
+    name: Provenance coverage
+    observes: [C2, D1]
+    meaning: Share of outputs whose every claim cites a retrieved passage with a source and version.
+    target: "100%"
+  - id: escalation_latency
+    name: Escalation latency
+    observes: [D2]
+    meaning: Time from approval request to human decision. Long tails mean the approver is a bottleneck or the tiering is wrong.
+  - id: alignment_score
+    name: Alignment score
+    observes: [E2, E3]
+    meaning: Statistical closeness of outputs to a policy ground-truth set, tracked per model version.
+  - id: routine_path_share
+    name: Routine path share
+    observes: [A3]
+    meaning: Share of requests kept off the model path. A falling share is a cost and latency warning.

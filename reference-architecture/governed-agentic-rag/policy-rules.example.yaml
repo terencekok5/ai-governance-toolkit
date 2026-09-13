@@ -1,0 +1,42 @@
+# Example policy-engine rules (control B1). Illustrative, not prescriptive:
+# your tiers, thresholds and jurisdictions will differ. Rules are versioned
+# code, evaluated before and after reasoning; they are never prompts.
+policy:
+  version: "2026.09-example"
+  evaluated: [before_planning, before_commit]
+
+rules:
+  - id: P-001
+    description: Irreversible actions always require a named approver.
+    when: { task.risk_tier: irreversible }
+    then: { require_state: approved, approver_role: "deployment owner or delegate" }
+
+  - id: P-002
+    description: Financial commitments above threshold escalate regardless of tier.
+    when: { action.type: financial_commitment, action.amount_sgd: { gt: 5000 } }
+    then: { require_state: approved }
+
+  - id: P-003
+    description: Personal data of a restricted class never leaves the tenant boundary.
+    when: { data.class: [restricted_pii, health, financial_account] }
+    then: { deny_tools: [external_email, external_http], require_output_check: leakage }
+
+  - id: P-004
+    description: Tools outside the task allowlist are denied and logged, never retried.
+    when: { action.tool: { not_in: task.tool_allowlist } }
+    then: { deny: true, log: E1, escalate: false }
+
+  - id: P-005
+    description: Retrieved content from an untrusted tier cannot raise permissions.
+    when: { retrieval.trust_tier: [untrusted, external] }
+    then: { render_as: quoted_data, permission_change: forbidden }
+
+  - id: P-006
+    description: Budget or deadline exhaustion halts the task.
+    when: { any: [ { task.tokens_used: { gt: task.budget_tokens } }, { now: { gt: task.deadline } } ] }
+    then: { transition: escalated_halted, notify: [deployment_owner] }
+
+  - id: P-007
+    description: Jurisdiction-specific disclosure of AI involvement on customer-facing output.
+    when: { output.audience: external, task.jurisdiction: [SG, EU] }
+    then: { require_output_check: ai_disclosure }

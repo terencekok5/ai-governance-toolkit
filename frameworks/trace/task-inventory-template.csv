@@ -1,0 +1,3 @@
+task_id,task,owner,T_traceability,R_reversibility_tier,R_pass,A_acceptance,C_compliance,E_escalation,criteria_failed,decision,notes
+"T-001","Draft first-response email to routine supplier queries","Procurement lead",pass,reversible_no_harm,pass,pass,pass,fail,1,hold,"Override pathway exists on paper; rehearse it, then re-score"
+"T-002","Auto-approve purchase orders under S$5k","Finance ops",pass,irreversible,fail,pass,pass,pass,1,hold,"Irreversible: needs a named approver before any autonomy"

@@ -1,0 +1,22 @@
+{
+  "task_id": "task_2026-09-13_000117",
+  "principal": { "id": "u_4821", "kind": "person" },
+  "tenant": "acme-sg",
+  "jurisdictions": ["SG"],
+  "risk_tier": "irreversible",
+  "state": "committed",
+  "tool_allowlist": ["erp.create_purchase_order", "erp.lookup_vendor"],
+  "data_scope": ["procurement.vendors", "procurement.open_requests"],
+  "budget": { "tokens": 60000, "tool_calls": 12, "cost_ceiling": 2.5, "currency": "SGD" },
+  "deadline": "2026-09-13T09:30:00+08:00",
+  "acceptance_criteria": [
+    { "id": "AC1", "check": "PO total equals the approved request total to the cent", "ground_truth_source": "procurement.open_requests.amount" },
+    { "id": "AC2", "check": "Vendor is on the approved-vendor list at execution time", "ground_truth_source": "procurement.vendors.status" }
+  ],
+  "approval": { "approver": "M. Lim, Procurement Manager", "decided_at": "2026-09-13T09:12:41+08:00", "trace_ref": "e1:00000117:7f3a" },
+  "model_version": "provider/model@2026-08",
+  "prompt_version": "po-agent-v14",
+  "policy_version": "2026.09-example",
+  "created_at": "2026-09-13T09:02:03+08:00",
+  "audit_ref": "e1:00000117"
+}

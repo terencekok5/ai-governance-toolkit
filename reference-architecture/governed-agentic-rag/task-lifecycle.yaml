@@ -1,0 +1,41 @@
+# Task state machine for the Governed Agentic RAG reference architecture.
+# A task moves forward only when the named check passes; any failed check
+# moves it to `escalated_halted`, from which it cannot re-enter the path
+# without a human.
+states:
+  - id: received
+    check: Principal, tenant and scope resolved (A1). Input screened (A2).
+    next: [classified, escalated_halted]
+  - id: classified
+    check: Router verdict recorded. Routine requests leave the model path here (A3).
+    next: [enveloped, completed_deterministic, escalated_halted]
+  - id: enveloped
+    check: TRACE tier, budget, deadline and tool allowlist attached (B1, B2, B3).
+    next: [planned, escalated_halted]
+  - id: planned
+    check: Plan is inside the envelope; no tool outside the allowlist, no data outside scope.
+    next: [executed, escalated_halted]
+  - id: executed
+    check: Every tool call idempotent; irreversible calls ran as dry-run first where available (C3).
+    next: [verified, escalated_halted]
+  - id: verified
+    check: Output meets the acceptance criteria set before planning; guardrails passed (D1).
+    next: [approved, committed, escalated_halted]
+    note: Tasks in the irreversible or regulated tier must pass through `approved`; lower tiers may go straight to `committed` and are sampled after the fact.
+  - id: approved
+    check: Approver named, reasoning trace attached (D2).
+    next: [committed, escalated_halted]
+  - id: committed
+    check: Typed command issued to Layer 7 by D3 only. Audit entry sealed (E1).
+    next: []
+  - id: completed_deterministic
+    check: Routine request answered without the model path; audit entry sealed (E1).
+    next: []
+  - id: escalated_halted
+    check: Any failed check above. Task cannot re-enter the path without a human.
+    next: []
+
+tier_rules:
+  irreversible: { requires_state: approved, sampling: none }
+  reversible_with_cost: { requires_state: verified, sampling: "defined sample rate plus approval above cost threshold" }
+  reversible_no_harm: { requires_state: verified, sampling: "defined sample rate" }

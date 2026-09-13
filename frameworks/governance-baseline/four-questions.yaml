@@ -1,0 +1,72 @@
+# Four-Question AI Governance Baseline, machine-readable form.
+# Canonical reference: https://terencekok.com/frameworks/governance/
+# Deposited brief:     https://doi.org/10.5281/zenodo.22722219
+framework:
+  id: governance-baseline
+  name: Four-Question AI Governance Baseline
+  version: "1.1"
+  first_published: 2026-06-15
+  revised: 2026-09-12
+  author: Terence Kok
+  doi: 10.5281/zenodo.22722219
+  url: https://terencekok.com/frameworks/governance/
+  license: CC-BY-NC-4.0
+  summary: >
+    Four diagnostic questions that expose structural AI governance gaps
+    before deployment. Applied the same way to a single AI assistant in one
+    team and to a deployment spanning three regulatory jurisdictions.
+
+decision_rule:
+  governed: "all four questions answered with a specific, current, evidenced answer"
+  ungoverned: "any question unanswered: the deployment is running on trust, not governance"
+  multi_jurisdiction: >
+    Apply the four questions against each regulatory environment separately,
+    then identify the common governance floor that satisfies all of them
+    simultaneously.
+
+questions:
+  - id: Q1
+    question: What can it do without asking you?
+    tests: scope of autonomous action
+    acceptable_answer: >
+      An explicit, enumerated list of every action the system can take without
+      human approval. For agentic systems this covers read access, write
+      access, external communications and financial commitments.
+    unacceptable_answers:
+      - "\"It's limited\", assumed rather than enumerated"
+      - A list that omits any of read, write, external communication, financial commitment for an agentic system
+    evidence: action allowlist or permission registry, dated
+
+  - id: Q2
+    question: Who checks the output?
+    tests: accountability for review before consequences
+    acceptable_answer: >
+      A named person, accountable for reviewing AI output before it produces
+      consequences.
+    unacceptable_answers:
+      - A team, a role or a process instead of a person
+      - "\"The system checks itself\""
+    evidence: name and role recorded against the deployment
+
+  - id: Q3
+    question: What happens when it is wrong?
+    tests: error response defined before the first error
+    acceptable_answer: >
+      A documented procedure covering who is notified, what is reverted or
+      corrected, how the incident is logged, who has authority to suspend the
+      system, and what constitutes a reportable event under applicable
+      regulatory frameworks.
+    unacceptable_answers:
+      - No written procedure
+      - A procedure with no suspension authority named
+    evidence: incident procedure, suspension authority, reportable-event definition
+
+  - id: Q4
+    question: Can your staff still do this manually?
+    tests: operational resilience and fallback
+    acceptable_answer: >
+      Staff can perform the task manually if the system fails, is suspended
+      by a regulator, or changes behaviour after a model update.
+    unacceptable_answers:
+      - Manual capability has lapsed or was never built
+    evidence: manual procedure exercised within a defined period

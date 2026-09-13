@@ -1,0 +1,56 @@
+# Risk register for the Governed Agentic RAG reference architecture.
+# Likelihood and impact are the reference architecture's assessment for a
+# typical enterprise deployment; re-rate for your own context.
+risks:
+  - risk: Prompt injection via a retrieved document
+    refs: [OWASP LLM01]
+    likelihood: High
+    impact: High
+    controls: [A2, C2, B3, D1]
+    residual: Low
+    residual_note: An injected instruction cannot widen permissions or bypass D1.
+  - risk: Data leakage across tenants or ACLs
+    refs: [OWASP LLM02, OWASP LLM08]
+    likelihood: Medium
+    impact: High
+    controls: [A1, C2, D1]
+    residual: Low
+  - risk: Irreversible action on a wrong plan
+    refs: [OWASP LLM06, OWASP Agentic T2]
+    likelihood: Medium
+    impact: High
+    controls: [B2, C3, D2, D3]
+    residual: Low
+  - risk: Silent quality drift after a model update
+    refs: [NIST AI RMF MEASURE]
+    likelihood: High
+    impact: Medium
+    controls: [E3, E2]
+    residual: Medium
+    residual_note: Depends on evaluation set coverage.
+  - risk: Unreconstructable decision at audit
+    refs: [OWASP Agentic T8, NIST SP 800-53 AU-10]
+    likelihood: Medium
+    impact: High
+    controls: [E1]
+    residual: Low
+  - risk: Cost or latency runaway
+    refs: [OWASP LLM10, OWASP Agentic T4]
+    likelihood: Medium
+    impact: Medium
+    controls: [A3, B2, E4]
+    residual: Low
+  - risk: Approvers overwhelmed into rubber-stamping
+    refs: [OWASP Agentic T10]
+    likelihood: Medium
+    impact: High
+    controls: [B2, E2]
+    residual: Low
+    residual_note: Holds only if the tiering is revisited when escalation latency rises.
+  - risk: Agent-to-agent escalation
+    refs: [OWASP Agentic T3, OWASP Agentic T9, OWASP Agentic T13]
+    likelihood: Low
+    impact: High
+    controls: [A1, B2, E2]
+    residual: Medium
+    residual_note: Multi-agent visibility is the least mature control.

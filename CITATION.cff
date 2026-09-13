@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this toolkit, cite the repository for the machine-readable form and the DOI of the deposited brief for the framework itself."
+title: "AI Governance Toolkit: machine-readable frameworks and reference-architecture controls"
+type: software
+version: 0.1.0
+date-released: 2026-09-13
+authors:
+  - family-names: Kok
+    given-names: Terence
+    name-particle: ""
+    affiliation: "Orion Five Engineering; Golden Gate University"
+    # orcid: https://orcid.org/0000-0000-0000-0000   # add once registered
+url: https://terencekok.com/frameworks/
+license: CC-BY-NC-4.0
+references:
+  - type: report
+    title: "Five-Dimension AI Readiness Assessment"
+    authors: [{ family-names: Kok, given-names: Terence }]
+    doi: 10.5281/zenodo.22722215
+    year: 2026
+  - type: report
+    title: "TRACE Framework for AI agent task evaluation"
+    authors: [{ family-names: Kok, given-names: Terence }]
+    doi: 10.5281/zenodo.22722217
+    year: 2026
+  - type: report
+    title: "Four-Question AI Governance Baseline"
+    authors: [{ family-names: Kok, given-names: Terence }]
+    doi: 10.5281/zenodo.22722219
+    year: 2026
+  - type: report
+    title: "Governed Agentic RAG: Reference Architecture"
+    authors: [{ family-names: Kok, given-names: Terence }]
+    doi: 10.5281/zenodo.22727449
+    year: 2026

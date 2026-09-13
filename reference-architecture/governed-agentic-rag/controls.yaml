@@ -1,0 +1,123 @@
+# Governed Agentic RAG reference architecture: control set.
+# Canonical reference: https://terencekok.com/research/reference-architectures/governed-agentic-rag/
+# Deposited record:    https://doi.org/10.5281/zenodo.22727449 (v1.0)
+#
+# Every control maps to ISO/IEC 42001:2023 clauses and Annex A controls and
+# to the MAS FEAT Principles (2018), so an auditor can trace the architecture
+# to the instruments they already use. The `basis.yaml` file traces each
+# design rule to its NIST/OWASP/ISO/MAS source.
+architecture:
+  id: governed-agentic-rag
+  name: "Governed Agentic RAG: Reference Architecture"
+  version: "1.0"
+  author: Terence Kok
+  doi: 10.5281/zenodo.22727449
+  url: https://terencekok.com/research/reference-architectures/governed-agentic-rag/
+  license: CC-BY-NC-4.0
+
+groups:
+  A: Ingress and identity
+  B: Policy and task envelope
+  C: Reasoning, retrieval and tools
+  D: Egress and human oversight
+  E: Assurance
+
+controls:
+  - id: A1
+    name: Identity and session
+    does: >
+      Binds every request to a principal, a tenant and a data-access scope before anything is retrieved or planned.
+    iso42001: ["A.9.4", "A.3.2"]
+    iso42001_note: Access control itself is an ISO/IEC 27001 control, referenced not duplicated.
+    mas_feat: ["P7", "P8"]
+  - id: A2
+    name: Input screening
+    does: >
+      Classifies the request for injection patterns, strips or flags PII and secrets, checks canaries, enforces size and rate limits.
+    iso42001: ["A.6.2.6", "6.1.2"]
+    mas_feat: ["P4", "P6"]
+  - id: A3
+    name: Semantic router
+    does: >
+      Routes routine requests to the deterministic path so the model handles only what needs reasoning. Threshold measured on a labelled sample.
+    iso42001: ["A.6.2.2", "A.6.2.4"]
+    mas_feat: ["P7", "P4"]
+  - id: B1
+    name: Policy engine
+    does: >
+      Deterministic rules on allowed tools, data classes, risk tier, jurisdiction and spend, evaluated before and after reasoning. Rules are versioned code, not prompts.
+    iso42001: ["A.2.2", "A.9.2"]
+    mas_feat: ["P5", "P7"]
+  - id: B2
+    name: Task envelope and state machine
+    does: >
+      Each task carries a TRACE risk tier, an approval state, a budget and a deadline. Transitions are checked against the envelope, never inferred from model output.
+    iso42001: ["A.5.2", "8.4"]
+    mas_feat: ["P7", "P9"]
+    see: [task-lifecycle.yaml, ../../schemas/task-envelope.schema.json]
+  - id: B3
+    name: Tool permission registry
+    does: >
+      Per-task allowlist of actions with least privilege; sandbox boundaries; credentials never visible to the planner.
+    iso42001: ["A.4.4", "A.10.2"]
+    mas_feat: ["P7", "P8"]
+  - id: C1
+    name: Planner
+    does: >
+      Produces a plan and candidate actions inside the envelope. No direct access to systems, credentials or unscoped data. Working context is session-scoped and isolated from long-term memory; memory writes are validated (OWASP Agentic T1).
+    iso42001: ["A.6.2.3", "A.6.2.7"]
+    mas_feat: ["P6", "P8"]
+  - id: C2
+    name: Retrieval
+    does: >
+      Versioned index; document-level ACLs enforced at query time; every passage carries source, version and trust tier; retrieved text is data, never instruction.
+    iso42001: ["A.7.2", "A.7.5", "A.7.4"]
+    mas_feat: ["P2", "P3", "P13"]
+  - id: C3
+    name: Tool execution and verification
+    does: >
+      Sandboxed, idempotent calls under a per-task allowlist; results checked against pre-agreed acceptance criteria before egress. Irreversible actions use a dry-run mode where the target offers one; where it does not, the action waits at D2 regardless.
+    iso42001: ["A.6.2.4", "A.6.2.5"]
+    mas_feat: ["P3", "P4"]
+  - id: D1
+    name: Output guardrails
+    does: >
+      Deterministic checks on the proposed output: policy compliance, disclosure of AI involvement, action scope, data leakage, citations present.
+    iso42001: ["A.6.2.6", "A.8.2"]
+    mas_feat: ["P1", "P6", "P12"]
+  - id: D2
+    name: Human checkpoint by tier
+    does: >
+      Irreversible, financial or regulated actions wait for a named approver with the reasoning trace attached (OWASP LLM06). Lower tiers are reviewed after the fact on a defined sample rate; approver queue length is monitored so oversight is not overwhelmed (OWASP Agentic T10).
+    iso42001: ["A.3.2", "A.9.2"]
+    mas_feat: ["P7", "P10", "P11"]
+  - id: D3
+    name: Action executor
+    does: >
+      The only component with credentials for production systems. Accepts typed commands only; free text never reaches Layer 7.
+    iso42001: ["A.4.5", "A.6.2.5"]
+    mas_feat: ["P8"]
+  - id: E1
+    name: Immutable audit log
+    does: >
+      Append-only, hash-chained record of inputs, retrieved sources and versions, policy verdicts, tool calls, model version, approvals and outputs.
+    iso42001: ["A.6.2.8", "9.1"]
+    mas_feat: ["P8", "P11", "P13", "P14"]
+  - id: E2
+    name: Evaluation and monitoring
+    does: >
+      Alignment to policy ground truth, drift, block rate, injection catch rate, escalation latency; reviewed on a defined cadence.
+    iso42001: ["9.1", "A.6.2.6", "10.1"]
+    mas_feat: ["P3", "P4", "P9"]
+  - id: E3
+    name: Model and prompt registry
+    does: >
+      Model, prompt and policy versions with approval and evaluation results; a change is a controlled release, not an edit.
+    iso42001: ["A.6.2.7", "8.1", "6.3"]
+    mas_feat: ["P8", "P4"]
+  - id: E4
+    name: Kill switch and incident response
+    does: >
+      Halt per task, per tool or globally; incident record; external reporting where a regulator or data subject must be told.
+    iso42001: ["A.8.4", "A.8.3", "10.2"]
+    mas_feat: ["P9", "P10"]

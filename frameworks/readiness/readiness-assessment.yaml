@@ -1,0 +1,89 @@
+# Five-Dimension AI Readiness Assessment, machine-readable form.
+# Canonical reference: https://terencekok.com/frameworks/readiness/
+# Deposited brief:     https://doi.org/10.5281/zenodo.22722215
+# Version tracks the framework version on the reference page.
+framework:
+  id: readiness
+  name: Five-Dimension AI Readiness Assessment
+  version: "1.1"
+  first_published: 2026-06-18
+  revised: 2026-09-12
+  author: Terence Kok
+  doi: 10.5281/zenodo.22722215
+  url: https://terencekok.com/frameworks/readiness/
+  license: CC-BY-NC-4.0
+  summary: >
+    Five operational dimensions, each scored 1 to 4, that predict AI
+    deployment failure before budget is committed. The verdict is the
+    lowest score, not the average: one dimension in the blocker zone
+    blocks the initiative on its own.
+
+scale:
+  min: 1
+  max: 4
+  blocker_max: 2        # a score of 1 or 2 on any dimension is a deployment blocker
+  ready_min: 3          # 3 or 4 on every dimension: proceed to tool selection and piloting
+
+verdict_rule: min      # verdict = min(dimension scores); never the mean
+
+verdicts:
+  - id: blocked
+    when: "min(scores) <= 2"
+    meaning: Address the blocking dimension before committing budget.
+  - id: ready
+    when: "min(scores) >= 3"
+    meaning: Proceed to tool selection and piloting.
+
+remediation_note: >
+  Most organisations can move a dimension from 1 to 3 within 60 to 90 days
+  with focused effort. D4 (team capability) closes fastest of the five.
+
+dimensions:
+  - id: D1
+    name: Data Readiness
+    question: Is your data clean, accessible, and structured in a way that AI can consume?
+    covers: [data quality, labelling, lineage, access controls]
+    blocker_signal: >
+      AI cannot produce reliable outputs from your current data state.
+      Data infrastructure work is a prerequisite.
+    note: The most common deployment blocker, and the one teams most frequently underestimate.
+
+  - id: D2
+    name: Process Definition
+    question: Is the target task consistent, documented, and executable by a new hire without tribal knowledge?
+    covers: [process documentation, consistency of inputs, executability without tribal knowledge]
+    blocker_signal: >
+      Process standardisation must precede AI deployment. Automating an
+      undefined process accelerates inconsistency.
+
+  - id: D3
+    name: Governance Structure
+    question: Who approves AI decisions, who handles errors, and what is the escalation path when output is wrong?
+    covers: [decision authority, error handling, escalation path]
+    blocker_signal: >
+      AI deployment in this area creates unmanaged liability. Define decision
+      authority and error handling before proceeding.
+    note: Governance gaps surface as legal and reputational incidents, not technical failures.
+
+  - id: D4
+    name: Team Capability
+    question: Can your team review AI outputs critically, without specialist support?
+    covers: [critical review of outputs, error detection before harm]
+    blocker_signal: >
+      Upskilling is a prerequisite. AI deployment without review capability
+      produces unchecked errors.
+    note: Capability gaps create false confidence in AI output quality.
+
+  - id: D5
+    name: Measurement Framework
+    question: Do you have pre-AI baselines and defined success criteria?
+    covers: [pre-deployment baselines, success criteria, cost visibility]
+    blocker_signal: >
+      Establish baselines before deployment. Without them you cannot validate
+      outcomes or justify continued investment.
+
+score_descriptors:
+  1: Absent. Nothing in place; the dimension has not been considered.
+  2: Partial. Some elements exist but not enough to rely on; still a blocker.
+  3: Adequate. In place and usable for this initiative; monitor.
+  4: Strong. Established, documented and already exercised in practice.

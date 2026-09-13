@@ -1,0 +1,42 @@
+# Design rules and the published sources each rule rests on. The reference
+# architecture answers design questions with published best practice, not
+# with any one practitioner's preference; this file is that trace.
+basis:
+  - rule: Every requester is authenticated and authorised on every request, whether a person, an upstream system or another agent.
+    sources:
+      - { name: "NIST SP 800-207, Zero Trust Architecture", url: "https://doi.org/10.6028/NIST.SP.800-207" }
+      - { name: "OWASP Agentic AI Threats and Mitigations, T9 Identity Spoofing, T3 Privilege Compromise", url: "https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/" }
+  - rule: Retrieved content is data, never instruction; the model has no direct access to systems or credentials; tools run under least privilege from a per-task allowlist.
+    sources:
+      - { name: "OWASP Top 10 for LLM Applications 2025: LLM01, LLM06, LLM08", url: "https://genai.owasp.org/llm-top-10/" }
+      - { name: "OWASP Agentic T2 Tool Misuse", url: "https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/" }
+  - rule: Irreversible, financial or regulated actions require explicit human approval before execution; lower-risk actions are reviewed after the fact on a defined sample.
+    sources:
+      - { name: "OWASP LLM06 mitigation", url: "https://genai.owasp.org/llm-top-10/" }
+      - { name: "NIST AI RMF 1.0 MANAGE; NIST AI 600-1 Generative AI Profile", url: "https://doi.org/10.6028/NIST.AI.600-1" }
+      - { name: "ISO/IEC 42001:2023 A.9.2, A.6.2.6" }
+  - rule: Short-term working context is isolated from long-term memory; memory writes are validated and session-scoped.
+    sources:
+      - { name: "OWASP Agentic AI Threats and Mitigations v1.0, T1 Memory Poisoning", url: "https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/" }
+  - rule: Every action is logged to an append-only, integrity-protected record that the operator cannot alter, with enough detail to reconstruct the decision.
+    sources:
+      - { name: "NIST SP 800-53 Rev. 5, AU-9, AU-10", url: "https://doi.org/10.6028/NIST.SP.800-53r5" }
+      - { name: "ISO/IEC 27001:2022 Annex A 8.15; ISO/IEC 42001 A.6.2.8" }
+      - { name: "OWASP Agentic T8 Repudiation and Untraceability" }
+  - rule: Deterministic output checks and a kill switch sit between the model and any production effect; failures are blocked or escalated, never retried silently.
+    sources:
+      - { name: "OWASP LLM05 Improper Output Handling", url: "https://genai.owasp.org/llm-top-10/" }
+      - { name: "NIST AI 600-1; ISO/IEC 42001 A.8.4, 10.2" }
+  - rule: Model, prompt and policy changes are controlled releases with evaluation results, and drift is monitored on a defined cadence.
+    sources:
+      - { name: "NIST AI RMF MEASURE and MANAGE; ISO/IEC 42001 6.3, 8.1, 9.1, A.6.2.7" }
+      - { name: "MAS Artificial Intelligence Model Risk Management information paper (Dec 2024)", url: "https://www.mas.gov.sg/publications/monographs-or-information-paper/2024/artificial-intelligence-model-risk-management" }
+  - rule: Human oversight is protected from overload; escalation volume is a monitored metric and the tiering is adjusted when approvers become the bottleneck.
+    sources:
+      - { name: "OWASP Agentic T10 Overwhelming Human in the Loop", url: "https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/" }
+      - { name: "NIST AI 600-1 on human-AI configuration" }
+  - rule: Singapore deployments map the same controls to the local instruments.
+    sources:
+      - { name: "IMDA Model AI Governance Framework for Generative AI (May 2024)" }
+      - { name: "CSA Guidelines and Companion Guide on Securing AI Systems (Oct 2024)", url: "https://www.csa.gov.sg/resources/publications/guidelines-and-companion-guide-on-securing-ai-systems" }
+      - { name: "MAS FEAT Principles (2018)" }

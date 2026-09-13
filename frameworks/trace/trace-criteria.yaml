@@ -1,0 +1,80 @@
+# TRACE Framework for AI agent task evaluation, machine-readable form.
+# Canonical reference: https://terencekok.com/frameworks/trace/
+# Deposited brief:     https://doi.org/10.5281/zenodo.22722217
+framework:
+  id: trace
+  name: TRACE Framework
+  version: "1.1"
+  first_published: 2026-06-17
+  revised: 2026-09-12
+  author: Terence Kok
+  doi: 10.5281/zenodo.22722217
+  url: https://terencekok.com/frameworks/trace/
+  license: CC-BY-NC-4.0
+  summary: >
+    Five pre-deployment checks for whether a task is structurally
+    appropriate to hand to an AI agent, applied before architecture or
+    vendor decisions are made.
+
+decision_rule:
+  candidate: "all five criteria satisfied"
+  hold: "two or more criteria failed: keep the task in a manual or assisted workflow until remediated"
+  first_phase_cap: "no more than 3 to 5 fully qualifying tasks in the first deployment phase"
+  sequence:
+    - Score every candidate task against all five criteria before vendor selection or system design.
+    - Present the scored task inventory to leadership before procurement.
+    - Select the first-phase tasks from those satisfying all five, so they can be monitored closely before scaling.
+
+# Reversibility tiers are reused by the Governed Agentic RAG reference
+# architecture as the task's risk tier (see reference-architecture/).
+risk_tiers:
+  - id: reversible_no_harm
+    label: Reversible, no material harm
+    human_checkpoint: after-the-fact review on a defined sample
+  - id: reversible_with_cost
+    label: Reversible with cost
+    human_checkpoint: after-the-fact review on a defined sample; approval where cost exceeds a set threshold
+  - id: irreversible
+    label: Irreversible
+    human_checkpoint: mandatory named human approval before execution
+
+criteria:
+  - id: T
+    name: Traceability of Inputs and Outputs
+    test: >
+      Every input consumed and output produced by the task can be logged,
+      timestamped, and attributed to a specific data source.
+    fail_condition: Tasks drawing on unstructured or unverified data sources without provenance controls.
+    remediation: Deprioritise until provenance controls are in place.
+
+  - id: R
+    name: Reversibility and Risk Tier
+    test: >
+      The task is classified by consequence of an erroneous output as
+      reversible with no material harm, reversible with cost, or irreversible.
+    fail_condition: Irreversible-consequence task proposed for autonomy without a human-in-the-loop checkpoint.
+    remediation: Add a human-in-the-loop checkpoint before any agent autonomy is granted.
+
+  - id: A
+    name: Acceptance Criteria Definition
+    test: >
+      The task has measurable, pre-agreed success criteria independent of the
+      agent's own output.
+    fail_condition: No external ground truth or validation method exists.
+    remediation: Define acceptance criteria and a validation method before deployment, regardless of technical feasibility.
+
+  - id: C
+    name: Compliance and Regulatory Mapping
+    test: >
+      The regulatory regimes, sector codes, and internal governance policies
+      that apply to the task are identified before architecture decisions.
+    fail_condition: Mapping not completed before scoping, in a government or regulated environment.
+    remediation: Complete the mapping as a prerequisite to scoping.
+
+  - id: E
+    name: Escalation and Override Pathway
+    test: >
+      A clear, tested mechanism exists for a human operator to intervene,
+      override, or halt the agent mid-task.
+    fail_condition: Pathway documented but never exercised, or absent.
+    remediation: Demonstrate the override live before granting autonomy. Absence disqualifies the task regardless of model performance.
