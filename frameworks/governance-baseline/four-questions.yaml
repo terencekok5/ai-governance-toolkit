@@ -10,7 +10,7 @@ framework:
   author: Terence Kok
   doi: 10.5281/zenodo.22722219
   url: https://terencekok.com/frameworks/governance/
-  license: CC-BY-NC-4.0
+  license: CC-BY-4.0
   summary: >
     Four diagnostic questions that expose structural AI governance gaps
     before deployment. Applied the same way to a single AI assistant in one

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1, 2026-09-14
+
+- Licence for the machine-readable content changed from CC BY-NC 4.0 to CC BY 4.0 so the files can be adopted in commercial governance programmes with attribution. Schemas and scripts remain Apache-2.0. Repository made public.
+- ORCID added to CITATION.cff.
+
 ## 0.1.0, 2026-09-13
 
 First release.

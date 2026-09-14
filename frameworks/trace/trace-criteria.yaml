@@ -10,7 +10,7 @@ framework:
   author: Terence Kok
   doi: 10.5281/zenodo.22722217
   url: https://terencekok.com/frameworks/trace/
-  license: CC-BY-NC-4.0
+  license: CC-BY-4.0
   summary: >
     Five pre-deployment checks for whether a task is structurally
     appropriate to hand to an AI agent, applied before architecture or

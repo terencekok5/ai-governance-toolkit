@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this toolkit, cite the repository for the machine-readable form and the DOI of the deposited brief for the framework itself."
 title: "AI Governance Toolkit: machine-readable frameworks and reference-architecture controls"
 type: software
-version: 0.1.0
+version: 0.1.1
 date-released: 2026-09-13
 authors:
   - family-names: Kok
@@ -11,7 +11,7 @@ authors:
     affiliation: "Orion Five Engineering; Golden Gate University"
     orcid: https://orcid.org/0009-0000-9204-6943
 url: https://terencekok.com/frameworks/
-license: CC-BY-NC-4.0
+license: CC-BY-4.0
 references:
   - type: report
     title: "Five-Dimension AI Readiness Assessment"

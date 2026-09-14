@@ -13,7 +13,7 @@ architecture:
   author: Terence Kok
   doi: 10.5281/zenodo.22727449
   url: https://terencekok.com/research/reference-architectures/governed-agentic-rag/
-  license: CC-BY-NC-4.0
+  license: CC-BY-4.0
 
 groups:
   A: Ingress and identity

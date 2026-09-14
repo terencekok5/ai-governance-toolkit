@@ -40,7 +40,7 @@ if (failed.length >= 2) console.log('hold:', trace.decision_rule.hold);
 | Four-Question AI Governance Baseline | 1.1 | [10.5281/zenodo.22722219](https://doi.org/10.5281/zenodo.22722219) |
 | Governed Agentic RAG: Reference Architecture | 1.0 | [10.5281/zenodo.22727449](https://doi.org/10.5281/zenodo.22727449) |
 
-The frameworks are the author's own; the reference architecture answers each design question from published best practice, and `basis.yaml` traces every rule to its source.
+The frameworks are the author's own; the reference architecture answers each design question from published best practice, and `basis.yaml` traces every rule to its source. Author identifiers: ORCID [0009-0000-9204-6943](https://orcid.org/0009-0000-9204-6943), Wikidata [Q141449389](https://www.wikidata.org/wiki/Q141449389).
 
 ## Citing
 
@@ -48,7 +48,7 @@ See `CITATION.cff`. For the frameworks themselves, cite the DOI of the deposited
 
 ## Licence
 
-See `LICENSE.md`. Framework and architecture content follows the licence on the reference pages; the schema and scripts are Apache-2.0.
+See `LICENSE.md`. The machine-readable framework and architecture content in this repository is **CC BY 4.0**, so it can be used in commercial governance programmes and products with attribution; the schema and scripts are Apache-2.0. The prose reference pages and Zenodo briefs keep their own licence (CC BY-NC 4.0).
 
 ## Contributing
 

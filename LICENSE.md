@@ -4,14 +4,16 @@ This repository contains two kinds of material.
 
 ## Framework and architecture content
 
-The files under `frameworks/` and `reference-architecture/` (YAML, CSV and their embedded text) are machine-readable expressions of works published at terencekok.com and deposited on Zenodo. They are licensed under the same terms as the reference pages:
+The files under `frameworks/` and `reference-architecture/` (YAML, CSV and their embedded text) are machine-readable expressions of works published at terencekok.com and deposited on Zenodo. In this repository they are licensed under:
 
-**Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**
-https://creativecommons.org/licenses/by-nc/4.0/
+**Creative Commons Attribution 4.0 International (CC BY 4.0)**
+https://creativecommons.org/licenses/by/4.0/
 
-You may copy, adapt and redistribute them for non-commercial purposes with attribution to Terence Kok and a link to the reference page or DOI. Use inside your own organisation's governance programme is permitted. Resale, or inclusion in a paid product or service, requires permission: use the contact page at https://terencekok.com/contact/.
+You may copy, adapt, redistribute and build on them for any purpose, including commercially, provided you give appropriate credit, link to the licence, and indicate if changes were made.
 
-Attribution form: "Terence Kok, [framework name] v[version], https://doi.org/[DOI], CC BY-NC 4.0."
+Attribution form: "Terence Kok, [framework name] v[version], https://doi.org/[DOI], CC BY 4.0, machine-readable form from https://github.com/terencekok5/ai-governance-toolkit."
+
+Note: the prose reference pages on terencekok.com and the PDF briefs deposited on Zenodo carry their own licence (CC BY-NC 4.0 at the time of writing). This CC BY 4.0 grant covers the machine-readable files in this repository, which the author has released under the broader licence deliberately so that governance programmes, consultancies and vendors can adopt them.
 
 ## Schemas and scripts
 

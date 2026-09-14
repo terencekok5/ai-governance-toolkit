@@ -11,7 +11,7 @@ framework:
   author: Terence Kok
   doi: 10.5281/zenodo.22722215
   url: https://terencekok.com/frameworks/readiness/
-  license: CC-BY-NC-4.0
+  license: CC-BY-4.0
   summary: >
     Five operational dimensions, each scored 1 to 4, that predict AI
     deployment failure before budget is committed. The verdict is the
